@@ -1,0 +1,96 @@
+<%- include('../parts/html-head') %> <%- include('../parts/navbar') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="card-body">
+        <h5 class="card-title">新增資料</h5>
+
+        <form name="form1" method="post" onsubmit="sendData(event)">
+          <div class="mb-3">
+            <label for="name" class="form-label">name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              required
+            />
+            <div class="form-text"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">email</label>
+            <input type="email" class="form-control" id="email" name="email" />
+          </div>
+          <div class="form-text"></div>
+
+          <div class="mb-3">
+            <label for="mobile" class="form-label">mobile</label>
+            <input
+              type="text"
+              class="form-control"
+              id="mobile"
+              name="mobile"
+              pattern="09\d{2}-?\d{3}-?\d{3}"
+            />
+            <div class="form-text"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="birthday" class="form-label">birthday</label>
+            <input
+              type="date"
+              class="form-control"
+              id="birthday"
+              name="birthday"
+            />
+            <div class="form-text"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="address" class="form-label">address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              name="address"
+            />
+            <div class="form-text"></div>
+          </div>
+          <button type="submit" class="btn btn-primary">新增</button>
+          <button
+            onclick="location.href='/address-book';"
+            type="reset"
+            class="btn btn-outline-secondary mx-2"
+          >
+            取消
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../parts/scripts') %>
+<script>
+  async function sendData(event) {
+    event.preventDefault();
+
+    const fd = new FormData(document.form1);
+    const r = await fetch("", {
+      method: "POST",
+      body: fd,
+    });
+
+    const data = await r.json();
+    console.log(data);
+    if (data.success) {
+      alert("新增成功");
+      location.href = "/address-book";
+    } else {
+      alert("新增發生錯誤");
+    }
+  }
+</script>
+<%- include('../parts/html-foot') %>
